@@ -21,10 +21,7 @@ public class MyHouseModel extends GridWorldModel {
     Location lOwner  = new Location(GSize-1, GSize-1); 
     Location lDelivery  = new Location(0, GSize-1); 
 	Location lRobot = new Location(GSize/2, GSize/2);
-	
-    Location closeTolFridge = new Location(1,1);
-    Location closeTolOwner  = new Location(GSize-2,GSize-2);
-	
+	 	
 	boolean atFridge = false;
 	boolean atOwner = false;
 	boolean atDelivery = false;
@@ -64,12 +61,16 @@ public class MyHouseModel extends GridWorldModel {
 /*
 	boolean atFridge(Location pos) {
 		return pos.equals(lFridge);
-	}       
+	}  */     
                                                                                            
-	boolean atOwner(Location pos) {
-		return pos.equals(lOwner);
+	boolean isCloseTo(Location source, Location destination) {
+		return source.x >= destination.x -1 &&
+               source.x <= destination.x +1 &&
+               source.y >= destination.y -1 &&
+               source.y <= destination.y +1;
+
 	}   
-*/	
+
     boolean moveTowards(Location dest) {
         Location r1 = getAgPos(0);
         if (r1.x < dest.x)        r1.x++;
@@ -79,9 +80,9 @@ public class MyHouseModel extends GridWorldModel {
 		
         setAgPos(0, r1); // move the robot in the grid
 
-		atOwner = r1.equals(closeTolOwner);
-		atFridge = r1.equals(closeTolFridge);
-		atDelivery = r1.equals(lDelivery);
+		atOwner = isCloseTo(r1, lOwner);
+		atFridge = isCloseTo(r1, lFridge);
+		atDelivery = isCloseTo(r1, lDelivery);
 		atBase = r1.equals(lRobot);
 
         // repaint the fridge and owner locations
