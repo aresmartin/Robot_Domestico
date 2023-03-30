@@ -62,7 +62,8 @@ public class MyHouseModel extends GridWorldModel {
 	boolean atFridge(Location pos) {
 		return pos.equals(lFridge);
 	}  */     
-                                                                                           
+             
+    //Coloca al robot en vez de encima de cada componente, al lado
 	boolean isCloseTo(Location source, Location destination) {
 		return source.x >= destination.x -1 &&
                source.x <= destination.x +1 &&
@@ -73,6 +74,8 @@ public class MyHouseModel extends GridWorldModel {
 
     boolean moveTowards(Location dest) {
         Location r1 = getAgPos(0);
+        //posFridge (2,2); posRobot (1,3)-> r1.x= 1 && r1.y=1
+        // posRobot r1.x++ y r1.y-- (se situa justo encima de fridge) mirar funcion isCLoseTo
         if (r1.x < dest.x)        r1.x++;
         else if (r1.x > dest.x)   r1.x--;                                                
         if (r1.y < dest.y)        r1.y++;
